@@ -9,8 +9,8 @@ __pycache__/
 # my files
 *.csv
 .idea/
-test/*
-training/*
+#test/*
+#training/*
 
 # Distribution / packaging
 .Python
