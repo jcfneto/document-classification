@@ -59,11 +59,13 @@ def sentence_embedding(df_train: pd.DataFrame, df_test: pd.DataFrame) -> \
 
     # sentenceBERT train
     bert = model.encode(df_train.doc_content.values)
-    df_train = pd.concat([df_train, pd.DataFrame(bert, columns=col_names)])
+    df_train = pd.concat([df_train, pd.DataFrame(bert, columns=col_names)],
+                         axis=1)
 
     # sentenceBERT test
     bert = model.encode(df_test.doc_content.values)
-    df_test = pd.concat([df_test, pd.DataFrame(bert, columns=col_names)])
+    df_test = pd.concat([df_test, pd.DataFrame(bert, columns=col_names)],
+                        axis=1)
 
     return df_train, df_test
 

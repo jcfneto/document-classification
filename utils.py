@@ -1,14 +1,17 @@
-import re
+import json
 import os
-
-import pandas as pd
-
+import re
+import time
+from collections import defaultdict
 from functools import reduce
+from typing import Callable, Sequence, TypeVar
 
+import numpy as np
+import pandas as pd
 from nltk import word_tokenize
 from nltk.corpus import stopwords
+from sklearn.metrics import f1_score
 
-from typing import TypeVar, Callable, Sequence
 
 T = TypeVar('T')
 
@@ -154,3 +157,66 @@ def processing_documents(path: str):
         processed.append((c, string))
 
     return pd.DataFrame(processed, columns=['doc_class', 'doc_content'])
+
+
+def f1(y_true: np.array,
+       y_pred: np.array,
+       results: defaultdict) -> defaultdict:
+    """
+    ...
+
+    Args:
+        y_true
+        y_pred:
+        results:
+
+    Returns:
+        ...
+    """
+    metrics = [('f1', None), ('f1_micro', 'micro'), ('f1_macro', 'macro')]
+    for k, f in metrics:
+        score = f1_score(y_true, y_pred, average=f)
+        results[k].append(score)
+    return results
+
+
+def kfold(estimator, X, y, cv):
+    """
+    ...
+
+    Args:
+        estimator:
+        X:
+        y:
+        cv:
+
+    Returns:
+        ...
+    """
+
+    results = defaultdict(list)
+
+    for i, j in cv.split(X):
+
+        # spliting data
+        X_train, y_train = X[i,:], y[i]
+        X_test, y_test = X[j,:], y[j]
+
+        # training and predictions
+        start = time.time()
+        estimator.fit(X_train, y_train)
+        pred = estimator.predict(X_test)
+        end = time.time()
+
+        # validating
+        results['exec_time'].append(end-start)
+        results = f1(y_test, pred, results)
+
+    return results
+
+
+class NumpyEncoder(json.JSONEncoder):
+    def default(self, obj):
+        if isinstance(obj, np.ndarray):
+            return obj.tolist()
+        return json.JSONEncoder.default(self, obj)
