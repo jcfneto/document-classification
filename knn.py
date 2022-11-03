@@ -63,3 +63,6 @@ if __name__ == '__main__':
         train = pl.read_csv(f'output/{embedding}/train.csv').to_pandas()
         main(train, embedding)
         print(f'Finish grid search for "{embedding}".\n')
+
+# blabla bla bla bla bla
+print('qualquer coisa')
