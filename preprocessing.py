@@ -1,5 +1,3 @@
-import time
-
 import polars as pl
 
 from utils import *
@@ -22,7 +20,7 @@ def tf_idf(df_train: pd.DataFrame, df_test: pd.DataFrame) -> \
         pass...
     """
 
-    # TF-IDF embedding transformer
+    # TF-IDF embedding transformer (lowercase = True to default)
     vectorizer = TfidfVectorizer(norm='l2', stop_words='english')
     transformer = vectorizer.fit(df_train.doc_content.values)
     col_names = vectorizer.get_feature_names_out()

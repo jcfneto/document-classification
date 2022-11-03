@@ -16,13 +16,12 @@ from sklearn.metrics import f1_score
 T = TypeVar('T')
 
 
-def reading_files(path: str, lower: bool = True) -> list:
+def reading_files(path: str) -> list:
     """
     Reading files on specific directory.
 
     Args:
         path: Path.
-        lower: ...
 
     Returns:
         files: ...
@@ -31,8 +30,6 @@ def reading_files(path: str, lower: bool = True) -> list:
     for d in os.listdir(path):
         for f in os.listdir(f'{path}{d}'):
             tmp = open(f'{path}{d}/{f}', 'r', encoding='ISO-8859-1').read()
-            if lower:
-                tmp = tmp.lower()
             files.append((d, tmp))
     return files
 
@@ -134,7 +131,7 @@ def remove_stopwords(string: str, stopword_language: str = 'english') -> str:
     return new_string[:-1]
 
 
-def processing_documents(path: str):
+def processing_documents(path: str) -> pd.DataFrame:
     """
     ...
 
@@ -173,10 +170,9 @@ def f1(y_true: np.array,
     Returns:
         ...
     """
-    metrics = [('f1', None), ('f1_micro', 'micro'), ('f1_macro', 'macro')]
-    for k, f in metrics:
-        score = f1_score(y_true, y_pred, average=f)
-        results[k].append(score)
+    metrics = ('micro', 'macro')
+    for m in metrics:
+        results[m].append(f1_score(y_true, y_pred, average=m))
     return results
 
 
@@ -199,8 +195,8 @@ def kfold(estimator, X, y, cv):
     for i, j in cv.split(X):
 
         # spliting data
-        X_train, y_train = X[i,:], y[i]
-        X_test, y_test = X[j,:], y[j]
+        X_train, y_train = X[i, :], y[i]
+        X_test, y_test = X[j, :], y[j]
 
         # training and predictions
         start = time.time()
