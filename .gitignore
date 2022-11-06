@@ -7,7 +7,7 @@ __pycache__/
 *.so
 
 # others
-t.py
+pca.py
 
 # my files
 *.csv
