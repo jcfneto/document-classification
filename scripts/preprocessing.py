@@ -87,17 +87,17 @@ def to_csv(directory: str, filenames: Sequence, dataframes: Sequence) -> None:
 if __name__ == '__main__':
 
     # processing documents
-    train = processing_documents('training/')
-    test = processing_documents('test/')
+    train = processing_documents('../training/')
+    test = processing_documents('../test/')
 
     # TF-IDF embedding
     start = time.time()
     train_tf_idf, test_tf_idf = tf_idf(train, test)
-    to_csv('output/tf_idf', ('train', 'test'), (train_tf_idf, test_tf_idf))
+    to_csv('../output/tf_idf', ('train', 'test'), (train_tf_idf, test_tf_idf))
     print(f'TF-IDF execution time: {time.time() - start}.')
 
     # sentenceBERT embedding
     start = time.time()
     train_bert, test_bert = sentence_embedding(train, test)
-    to_csv('output/bert', ('train', 'test'), (train_bert, test_bert))
+    to_csv('../output/bert', ('train', 'test'), (train_bert, test_bert))
     print(f'sentenceBERT execution time: {time.time() - start}.')

@@ -44,7 +44,7 @@ def main(df: pd.DataFrame, embedding_type: str) -> None:
             score = np.round(np.mean(grid_search_results[curr_search][j]), 3)
             print(f'{j} = {score}.')
 
-    with open(f'output/results/svm/{embedding_type}_results.json',
+    with open(f'../output/results/svm/{embedding_type}_results.json',
               'w') as of:
         json.dump(grid_search_results, of, cls=NumpyEncoder)
         print('Results are saved.')
@@ -55,6 +55,6 @@ if __name__ == '__main__':
     embeddings = ('tf_idf', 'bert')
     for embedding in embeddings:
         print(f'Starting grid search for "{embedding}" embedding.')
-        train = pl.read_csv(f'output/{embedding}/train_pca.csv').to_pandas()
+        train = pl.read_csv(f'../output/{embedding}/train_pca.csv').to_pandas()
         main(train, embedding)
         print(f'Finish grid search for "{embedding}".\n')
