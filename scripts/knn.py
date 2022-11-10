@@ -20,10 +20,12 @@ KNN_PARAMS = list(itertools.product(*[KNN_PARAMS[k] for k in KNN_PARAMS]))
 
 def main(df: pd.DataFrame, embedding_type: str) -> None:
     """
+    Performs model training.
 
     Args:
-        df:
-        embedding_type:
+        df: Training data.
+        embedding_type: Training data embedding type.
+                        Can be 'tf_idf' or 'bert'.
     """
     grid_search_results = {}
     kf = KFold(n_splits=CV, shuffle=True)

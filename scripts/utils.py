@@ -24,7 +24,7 @@ def reading_files(path: str) -> list:
         path: Path.
 
     Returns:
-        files: ...
+        files: Namefiles and document content.
     """
     files = []
     for d in os.listdir(path):
@@ -36,93 +36,93 @@ def reading_files(path: str) -> list:
 
 def remove_html(string: str) -> str:
     """
-    ...
+    Remove html and xml tags.
 
     Args:
-    string: ...
+        string: String
 
     Returns:
-    string: ...
+        string: String without  tags.
     """
     return re.sub(r'<.*?>', '', string)
 
 
 def remove_punctuation(string: str) -> str:
     """
-    ...
+    Remove punctuation.
 
     Args:
-        string: ...
+        string: String.
 
     Returns:
-        string: ...
+        string: String without punctuation.
     """
     return re.sub(r'[^\w\s]', '', string)
 
 
 def remove_whitespaces(string: str) -> str:
     """
-    ...
+    Remove multiple whitespaces.
 
     Args:
-        string: ...
+        string: Strig.
 
     Returns:
-        string: ...
+        string: String without multiple whitespaces.
     """
     return re.sub(' +', ' ', string)
 
 
 def remove_tags(string: str) -> str:
     """
-    ...
+    Remove tags.
 
     Args:
-        string: ...
+        string: String.
 
     Returns:
-        string: ...
+        stringString without tags.
     """
     return re.sub(r'\n', ' ', string)
 
 
 def remove_numbers(string: str) -> str:
     """
-    ...
+    Change all number to 0.
 
     Args:
-        string: ...
+        string: String.
 
     Returns:
-        string: ...
+        string: String with the standardized numbers.
     """
     return re.sub(r'\d+', '', string)
 
 
 def pipeline(value: T, functions: Sequence[Callable[[T], T]]) -> T:
     """
-    ...
+    Function execution sequencing.
 
     Args:
-        value: ...
-        functions: ...
+        value: Parameters.
+        functions: Object function.
 
     Returns:
-        string: ...
+        string: Processed string.
     """
     return reduce(lambda v, f: f(v), functions, value)
 
 
 def remove_stopwords(string: str, stopword_language: str = 'english') -> str:
     """
-    ...
+    Remove stopwords.
 
     Args:
-        string: ...
-        stopword_language: ...
+        string: String.
+        stopword_language: String language.
 
     Returns:
-        string: ...
+        string: String without stopwords.
     """
     new_string = ''
     for word in word_tokenize(string):
@@ -133,13 +133,13 @@ def remove_stopwords(string: str, stopword_language: str = 'english') -> str:
 
 def processing_documents(path: str) -> pd.DataFrame:
     """
-    ...
+    Performs pre-processing of documents.
 
     Args:
-        path:
+        path: Directory where documents are saved.
 
     Returns:
-        ...
+        Dataframe with pre-processed documents.
     """
     processed = []
     files = reading_files(path)
@@ -160,15 +160,15 @@ def f1(y_true: np.array,
        y_pred: np.array,
        results: defaultdict) -> defaultdict:
     """
-    ...
+    Compute f1 metrics.
 
     Args:
-        y_true
-        y_pred:
-        results:
+        y_true: Actual values.
+        y_pred: Predicted values.
+        results: Object to save the results.
 
     Returns:
-        ...
+         results: Dictionary with the F1 results.
     """
     metrics = ('micro', 'macro')
     for m in metrics:
@@ -176,18 +176,18 @@ def f1(y_true: np.array,
     return results
 
 
-def kfold(estimator, X, y, cv):
+def kfold(estimator, X, y, cv) -> defaultdict:
     """
     ...
 
     Args:
-        estimator:
-        X:
-        y:
-        cv:
+        estimator: The object model.
+        X: Predictors.
+        y: Targets.
+        cv: Number of k-folds.
 
     Returns:
-        ...
+        results: Dictionary with the results of cross-validation runs.
     """
 
     results = defaultdict(list)

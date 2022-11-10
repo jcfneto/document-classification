@@ -21,14 +21,15 @@ variance.
 
 def best_n_components(x: np.array, threshold: float) -> [int, PCA]:
     """
-    ...
+    Selects the best value for the number of components.
 
     Args:
-        x:
-        threshold:
+        x: Data to be compressed.
+        threshold: Threshold for decision based on explained variance rate.
 
     Returns:
-
+        n_components: Number of components.
+        pca: PCA object.
     """
     varianve_ratio = 0
     n_components = 0
