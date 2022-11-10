@@ -33,4 +33,11 @@ verificar se um classificador é realmente melhor do que o outro.
 
 O repositório está organizado da seguinte forma:
 
-- `output`: ...
+- `output`:
+  - `bert`: Diretório para armazenar os dados de treino e teste com vetorização BERT.
+  - `tf_idf`: Diretório para armazenar os dados de treino e teste com vetorização TF-IDF.
+  - `results`: Diretório para armazenar os resultados obtidos com o grid search e com os modelos finais.
+- `scrits`: Diretório com todos os códigos utilizados.
+- `test`: Documentos para teste.
+- `training`: Documentos para treino.
+- `article`: Diretório para armazenar o relatório técnico.
